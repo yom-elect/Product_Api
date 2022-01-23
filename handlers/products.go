@@ -23,10 +23,20 @@ import (
 	"example.com/mod/product-api/data"
 )
 
+// A list of products returns in the response
+// swagger:response productsResponse
+type productsResponse struct{
+	// All products in the system
+	// in: body
+	Body []data.Product
+}
+
+// Products is a http.Handler
 type Products  struct{
 	l *log.Logger
 }
 
+// NewProducts creates a products handler with the given logger
 func NewProducts(l*log.Logger) *Products {
 	return &Products{l}
 }
