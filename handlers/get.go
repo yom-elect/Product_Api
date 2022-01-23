@@ -6,12 +6,12 @@ import (
 	"example.com/mod/product-api/data"
 )
 
-//swagger: route GET /products products listProducts
-// Returns a list of products
+// swagger:route GET /products products listProducts
+// Returns a list of products from the database
 // responses:
-// 	200: productsResponse
+// 		200: productsResponse
 
-// GetProducts returns all list of products from the data store
+// GetProducts returns the products from the data store
 func (p *Products) GetProducts(w http.ResponseWriter, r *http.Request){
 	p.l.Println("Handle GET  PRORUCT")
 	
