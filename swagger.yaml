@@ -1,6 +1,6 @@
 basePath: /
 consumes:
-  - application/json
+- application/json
 definitions:
   Product:
     description: Product defines the structure for an API product
@@ -9,7 +9,9 @@ definitions:
         type: string
         x-go-name: Description
       id:
+        description: the id for product
         format: int64
+        minimum: 1
         type: integer
         x-go-name: ID
       name:
@@ -22,6 +24,8 @@ definitions:
       sku:
         type: string
         x-go-name: SKU
+    required:
+    - id
     type: object
     x-go-package: example.com/mod/product-api/data
 info:
@@ -35,18 +39,37 @@ paths:
       operationId: listProducts
       responses:
         "200":
-          $ref: "#/responses/productsResponse"
+          $ref: '#/responses/productsResponse'
       tags:
-        - products
+      - products
+  /products/{id}:
+    delete:
+      description: Returns a list of products
+      operationId: deleteProduct
+      parameters:
+      - description: The ID of the product to be deleted from the database
+        format: int64
+        in: path
+        name: id
+        required: true
+        type: integer
+        x-go-name: ID
+      responses:
+        "201":
+          $ref: '#/responses/noContent'
+      tags:
+      - products
 produces:
-  - application/json
+- application/json
 responses:
+  noContent:
+    description: ""
   productsResponse:
     description: A list of products returns in the response
     schema:
       items:
-        $ref: "#/definitions/Product"
+        $ref: '#/definitions/Product'
       type: array
 schemes:
-  - http
+- http
 swagger: "2.0"
