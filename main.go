@@ -8,11 +8,11 @@ import (
 	"os/signal"
 	"time"
 
-	"example.com/mod/env"
 	"example.com/mod/product-api/data"
 	"example.com/mod/product-api/handlers"
 	"github.com/go-openapi/runtime/middleware"
 	"github.com/gorilla/mux"
+	"github.com/nicholasjackson/env"
 )
 
 var bindAddress = env.String("BIND_ADDRESS", false, ":9090", "Bind address for the server")
@@ -44,7 +44,7 @@ func main() {
 	postR.Use(ph.MiddlewareValidateProduct)
 
 	deleteR := sm.Methods(http.MethodDelete).Subrouter()
-	deleteR.HandleFunc("/products/{id:[0-9]+}", ph.Delete)
+	deleteR.HandleFunc("/products/{id:[0-9]+}", ph.DeleteProducts)
 
 	// handler for documentation
 	opts := middleware.RedocOpts{SpecURL: "/swagger.yaml"}
