@@ -6,8 +6,8 @@ import (
 	"net/http"
 	"strconv"
 
-	"example.com/mod/product-api/data"
 	"github.com/gorilla/mux"
+	"github.com/yom-elect/Product_Api/data"
 )
 
 // Products is a http.Handler

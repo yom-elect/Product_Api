@@ -1,4 +1,4 @@
-module example.com/mod/product-api
+module github.com/yom-elect/Product_Api/product-api
 
 go 1.17
 

@@ -8,12 +8,12 @@ import (
 	"os/signal"
 	"time"
 
-	"example.com/mod/product-api/data"
-	"example.com/mod/product-api/handlers"
 	"github.com/go-openapi/runtime/middleware"
 	gohandlers "github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 	"github.com/nicholasjackson/env"
+	"github.com/yom-elect/Product_Api/product-api/data"
+	"github.com/yom-elect/Product_Api/product-api/handlers"
 )
 
 var bindAddress = env.String("BIND_ADDRESS", false, ":9090", "Bind address for the server")

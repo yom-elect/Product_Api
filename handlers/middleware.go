@@ -4,7 +4,7 @@ import (
 	"context"
 	"net/http"
 
-	"example.com/mod/product-api/data"
+	"github.com/yom-elect/Product_Api/data"
 )
 
 // MiddlewareValidateProduct validates the product in the request and calls next if ok

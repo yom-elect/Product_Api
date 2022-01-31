@@ -3,7 +3,7 @@ package handlers
 import (
 	"net/http"
 
-	"example.com/mod/product-api/data"
+	"github.com/yom-elect/Product_Api/product-api/data"
 )
 
 // swagger:route DELETE /products/{id} products deleteProduct

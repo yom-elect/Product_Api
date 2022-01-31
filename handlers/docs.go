@@ -16,7 +16,7 @@
 package handlers
 
 import (
-	"example.com/mod/product-api/data"
+	"github.com/yom-elect/Product_Api/data"
 )
 
 //
