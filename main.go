@@ -12,21 +12,34 @@ import (
 	gohandlers "github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 	"github.com/nicholasjackson/env"
-	"github.com/yom-elect/Product_Api/product-api/data"
-	"github.com/yom-elect/Product_Api/product-api/handlers"
+	"google.golang.org/grpc"
+
+	protos "product.com/product-microservice/product-api/currency"
+	"product.com/product-microservice/product-api/data"
+	"product.com/product-microservice/product-api/handlers"
 )
 
 var bindAddress = env.String("BIND_ADDRESS", false, ":9090", "Bind address for the server")
 
 func main() {
-
+	
 	env.Parse()
 
 	l := log.New(os.Stdout, "products-api ", log.LstdFlags)
 	v := data.NewValidation()
 
+	conn,err := grpc.Dial("localhost:9092", grpc.WithInsecure())
+	if err != nil {
+		panic(err)
+	}
+
+	defer conn.Close()
+
+	// create client
+	cc := protos.NewCurrencyClient(conn)
+
 	// create the handlers
-	ph := handlers.NewProducts(l, v)
+	ph := handlers.NewProducts(l, v, cc)
 
 	// create a new serve mux and register the handlers
 	sm := mux.NewRouter()
@@ -45,7 +58,7 @@ func main() {
 	postR.Use(ph.MiddlewareValidateProduct)
 
 	deleteR := sm.Methods(http.MethodDelete).Subrouter()
-	deleteR.HandleFunc("/products/{id:[0-9]+}", ph.DeleteProducts)
+	deleteR.HandleFunc("/products/{id:[0-9]+}", ph.Delete)
 
 	// handler for documentation
 	opts := middleware.RedocOpts{SpecURL: "/swagger.yaml"}

@@ -7,18 +7,20 @@ import (
 	"strconv"
 
 	"github.com/gorilla/mux"
-	"github.com/yom-elect/Product_Api/data"
+	protos "product.com/product-microservice/product-api/currency"
+	"product.com/product-microservice/product-api/data"
 )
 
 // Products is a http.Handler
 type Products  struct{
 	l *log.Logger
 	v *data.Validation
+	cc protos.CurrencyClient
 }
 
 // NewProducts creates a products handler with the given logger
-func NewProducts(l*log.Logger, v *data.Validation) *Products {
-	return &Products{l,v}
+func NewProducts(l*log.Logger, v *data.Validation, cc protos.CurrencyClient) *Products {
+	return &Products{l,v, cc}
 }
 
 type KeyProduct struct {}

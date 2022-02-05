@@ -16,7 +16,7 @@
 package handlers
 
 import (
-	"github.com/yom-elect/Product_Api/data"
+	"product.com/product-microservice/product-api/data"
 )
 
 //

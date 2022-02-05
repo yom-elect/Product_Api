@@ -3,7 +3,7 @@ package handlers
 import (
 	"net/http"
 
-	"github.com/yom-elect/Product_Api/product-api/data"
+	"product.com/product-microservice/product-api/data"
 )
 
 // swagger:route DELETE /products/{id} products deleteProduct

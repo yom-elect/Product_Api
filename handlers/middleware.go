@@ -4,7 +4,7 @@ import (
 	"context"
 	"net/http"
 
-	"github.com/yom-elect/Product_Api/data"
+	"product.com/product-microservice/product-api/data"
 )
 
 // MiddlewareValidateProduct validates the product in the request and calls next if ok
