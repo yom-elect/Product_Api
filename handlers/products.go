@@ -2,25 +2,24 @@ package handlers
 
 import (
 	"fmt"
-	"log"
 	"net/http"
 	"strconv"
 
 	"github.com/gorilla/mux"
-	protos "product.com/product-microservice/product-api/currency"
+	"github.com/hashicorp/go-hclog"
 	"product.com/product-microservice/product-api/data"
 )
 
 // Products is a http.Handler
 type Products  struct{
-	l *log.Logger
-	v *data.Validation
-	cc protos.CurrencyClient
+	l 			hclog.Logger
+	v 			*data.Validation
+	productDB 	*data.ProductsDB
 }
 
 // NewProducts creates a products handler with the given logger
-func NewProducts(l*log.Logger, v *data.Validation, cc protos.CurrencyClient) *Products {
-	return &Products{l,v, cc}
+func NewProducts(l hclog.Logger, v *data.Validation, productDB *data.ProductsDB) *Products {
+	return &Products{l,v, productDB}
 }
 
 type KeyProduct struct {}

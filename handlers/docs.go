@@ -69,6 +69,15 @@ type productParamsWrapper struct {
 	Body data.Product
 }
 
+// swagger:parameterslistProducts listSingleProduct
+type productQueryParam struct {
+	// Currency used when returning the price of the product
+	// when  not specified currency is returned in EUR
+	// in:query
+	// required: false
+	Currency string
+}
+
 // swagger:parameters listSingleProduct deleteProduct
 type productIDParamsWrapper struct {
 	// The id of the product for which the operation relates
