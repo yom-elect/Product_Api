@@ -5,6 +5,8 @@ import (
 	"fmt"
 
 	"github.com/hashicorp/go-hclog"
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
 	protos "product.com/product-microservice/product-api/currency"
 )
 
@@ -191,6 +193,19 @@ func (pb *ProductsDB) getRate(destinationRate string) (float64, error) {
 
 	// get initial rate
 	resp, err := pb.currency.GetRate(context.Background(), rr)
+	if err != nil {
+		if s, ok := status.FromError(err); ok {
+			md := s.Details()[0].(*protos.RateRequest)
+
+			if s.Code() == codes.InvalidArgument {
+				return -1, fmt.Errorf("unable to get rate from server, destination and base currencies cannot be the same, base: %s, dest: %s", md.Base.String(), md.Destination.String())
+			}
+
+			return -1, fmt.Errorf("unable to get rate from server, base: %s, dest: %s", md.Base.String(), md.Destination.String())
+		}
+		return -1, err
+	}
+
 	pb.rates[destinationRate] = resp.Rate // update cached
 
 	// subscribe for updates
